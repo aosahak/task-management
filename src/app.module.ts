@@ -1,7 +1,27 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { TasksModule } from './tasks/tasks.module';
 
 @Module({
-  imports: [TasksModule],
+  imports: [
+    TasksModule,
+    ConfigModule.forRoot({
+      envFilePath: ['.env'],
+      isGlobal: true,
+      cache: true,
+    }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.HOST,
+      port: +process.env.PORT,
+      username: process.env.UNAME,
+      password: process.env.PASS,
+      database: process.env.DB,
+      entities: [],
+      synchronize: true,
+      autoLoadEntities: true,
+    }),
+  ],
 })
 export class AppModule {}
