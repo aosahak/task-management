@@ -5,7 +5,6 @@ import {
   CallHandler,
 } from '@nestjs/common';
 import { instanceToPlain } from 'class-transformer';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export interface Response<T> {
